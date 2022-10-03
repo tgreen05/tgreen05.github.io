@@ -1,0 +1,78 @@
+{% extends 'tgreen/main.html' %}
+
+{% block content %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<div class="container h-100">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card card-body">
+			<script>
+			{% for message in messages %}
+				swal('{{ message }}');
+					{% endfor %}
+			</script>
+			<h5>TreeGreen</h5>
+			
+			<form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
+				<input type="text" class="form-control" name="searchfile" placeholder="Search..." aria-label="Search">
+			</form>
+			<br>
+			<div class="card card-body">
+				<a class="btn btn-primary btn-sm btn-block" href="{% url 'home' %}">Tambah File</a>
+				<table class="table table-striped">
+					
+					<tr>
+						<th>Nama File</th>
+						<th>File</th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						
+					</tr>
+
+					{% for download in page_obj.object_list %}
+					<tr>
+						
+						<td>{{ download.nama_file }}</td>
+						<td><a href="{{ download.file.url }}">{{ download.file }}</a>
+
+						</td>
+						<td>
+							<a class="btn btn-outline-danger btn-sm btn-blok" href=" {% url 'delete_file' download.id %} ">Hapus</a></td>
+							<td>
+						<td>
+							<a class="btn btn-outline-primary btn-sm btn-blok" href=" {% url 'update_file' download.id %} ">Update</a></td>
+							<td>
+							</tr>
+
+							{% endfor %}
+						</table>
+					</div>
+					<br>
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							{% if page_obj.has_previous %}
+							<li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+							<li class="page-item">
+								<a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+							</li>
+							{% endif %}
+
+							{% for num_page in page_obj.paginator.page_range %}
+							<li class="page-item"><a class="page-link" href="?page={{ num_page }}">{{ num_page }}</a></li>
+							{% endfor %}
+
+							{% if page_obj.has_next %}
+							<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+							</li>
+							<li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+							{% endif %}
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+
+
+{% endblock %}

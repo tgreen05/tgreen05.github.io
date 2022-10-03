@@ -1,0 +1,36 @@
+{% extends 'tgreen/main.html' %}
+
+{% block content %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<main class="form-signin w-100 m-auto">
+  
+  <script>
+  {% for message in messages %}
+  
+  swal('{{ message }}');
+
+  {% endfor %}
+  </script>
+
+  <form action="" method="POST" enctype="multipart/form-data">
+    <h1 class="h3 mb-3 fw-normal">TreeGreen</h1>
+    <span>hello, selamat datang {{user}} </span>
+    <span><a href="{% url 'logout' %}">logout</a></span>
+    <br>
+    {% csrf_token %}
+    <br>
+    <div class="form-group">
+      {{form.nama_file}}
+    </div>
+    <br>
+    <div class="form-floating">
+      {{form.file}}
+    </div>
+    <br>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Tambah Data</button>
+  </form>
+  <br>
+  <a class="btn btn-outline-secondary btn-sm btn-blok" href="{% url 'download' %}">Form Data</a>
+</main>
+
+{% endblock %}

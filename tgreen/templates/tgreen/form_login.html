@@ -1,0 +1,32 @@
+{% extends 'tgreen/main.html' %}
+
+{% block content %}
+
+<main class="form-signin w-100 m-auto">
+  <form action="" method="POST" enctype="multipart/form-data">
+    <h1 class="h3 mb-3 fw-normal">TreeGreen</h1>
+
+    {% for message in messages %}
+  
+   <p style="color: red;">{{ message }}</p> 
+
+    {% endfor %}
+    
+    {% csrf_token %}
+    <div class="form-floating">
+      <input type="text" name="username" class="form-control">
+      <label for="floatingPassword">Username</label>
+    </div>
+    <br>
+    <div class="form-floating">
+      <input type="password" name="password" class="form-control">
+      <label for="floatingPassword">Password</label>
+    </div>
+    <p>Daftar Akun,<a href="{% url 'register_user' %}">Register</a></p>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+  </form>
+  <br>
+</main>
+
+{% endblock %}
